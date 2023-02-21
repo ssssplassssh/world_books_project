@@ -150,7 +150,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Heroku: Обновление конфигурации базы данных из $DATAВASE_URL. 
 import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500) 
+db_from_env = dj_database_url.config(conn_max_age=500, ssl_require=False) 
 DATABASES['default'].update(db_from_env)
 
 
@@ -168,5 +168,5 @@ if not os.environ.get('DATABASE_URL'):
 else:
     # Використовуємо Postgres на хостингу
     DATABASES = {
-        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
     }
