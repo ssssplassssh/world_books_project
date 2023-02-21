@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)(=)^&i#hkimr19k%03nedy2$7#u7v-*j*1v69y6^(m__=*exr
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['my-world-book.herokuapp.com']
 
 
 # Application definition
