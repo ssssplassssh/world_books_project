@@ -10,7 +10,7 @@ from django.views import generic
 
 def index(request): 
 	# Генерация "количеств" некотор�,IХ главньIХ объектов 
-	num_books = Book.objects.all().count() 
+	# num_books = Book.objects.all().count() 
 	num_instances = BookInstance.objects.all().count() 
 	# Доступные книги (статус= 'На складе') 
 	num_instances_available = BookInstance.objects.filter().count() 
