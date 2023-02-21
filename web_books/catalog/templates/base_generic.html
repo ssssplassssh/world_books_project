@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block title %}<title>Світ книг</title>{% endblock %} 
+<meta charset="utf-8"> · 
+<meta name="viewport" content="width=device-width, initial-scale=l"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<!-- Добавление статического СSS-файла --> 
+{% load static %} 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+{% block head %} 
+	<img src="{% static 'images/pig.jpg' %}" 
+	style="width:150px; height:150px;" align="absmiddle"> 
+	<font size=7, соlоr="blue">Сайт "Світ Книг"</font> 
+{% endblock %} 
+</head> 
+<body> 
+	<div class="container-fluid"> 
+		<div class="row"> 
+		<div class="col-sm-2"> 
+		{% block sidebar %} 
+		<ul class="sidebar-nav"> 
+			<li><a href="{% url 'index' %}">Головна сторінка</a></li> 
+			<li><a href="{% url 'books' %}">Всі книги</a></li> 
+			<li><a href="{% url 'authors' %}">Всі автори</a></li> 
+			<li><a href="{% url 'authors_add' %}">Редагувати книгу</a></li> 
+			<li><a href="{% url 'book_create' %}">Добавити книгу</a></li> 
+			{% if user.is_authenticated %} 
+				<li>Користувач: {{ user.get_username }}</li>
+				<li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+				{% else %} 
+				<li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li> 
+				{% endif %} 
+			{% if user.is_authenticated %} 
+				<li><a href="{% url 'my-borrowed' %}">Мої замовлення</a></li> 
+			{% endif %}
+		</ul> 
+		{% endblock %} 
+		</div>
+		<div class="col-sm-10 "> 
+		{% block content %}{% endblock %} 
+
+		{% block pagination %} 
+			{% if is_paginated %} 
+			<div class="pagination"> 
+				<span class="page-links"> 
+					{% if page_obj.has_previous %} 
+						<a href="{{ request.path }}?page={{ page_obj.previous_page_number }} 
+						">Попередня</a> 
+					{% endif %} 
+					<span class="page-current"> 
+						Попередня {{ page_obj.number }} з 
+						{{ page_obj.paginator.num_pages }}. 
+				</span> 
+				{% if page_obj.has_next %} 
+					<a href="{{ request.path }}?page={{ page_obj.next_page_number }} 
+					">Наступна</a> 
+				{% endif %} 
+				</span> 
+				</div> 
+			{% endif %} 
+		{% endblock %} 
+			
+		{% block footer %} 
+			{% block copyright %} 
+		<p>Copyright ООО "Люди і книги", 2023. Всі права захищені</p>
+		{% endblock %}
+		
+		{% endblock %} 
+		</div> 
+	</div> 
+	</div> 
+</body> 
+</html>

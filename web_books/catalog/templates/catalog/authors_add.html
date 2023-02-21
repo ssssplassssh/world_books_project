@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %} 
+{% block content %}
+<h3>Список авторів в БД</h3> 
+	<table> 
+		<thead><th>Id</th><th>----Ім'я----
+			</th><th>Прізвище</th><th></th></thead> 
+	{% if author %} 
+		{% for author in author.all %}
+			<tr> 
+				<td>{{author.id}}</td> 
+				<td>{{author.first_name}}</td> 
+				<td>{{author.last_name}}</td> 
+				<td><a href="/edit1/{{author.id}}">Змінити</a>, 
+					<a href="/delete/{{author.id}}">Видалити</a></td> 
+			</tr> 
+		{% endfor %} 
+	{% else %} 
+		<p>У базі даних немає авторів</p> 
+	{% endif %} 
+	</table> 
+
+<h3>Додати до БД автора книги</h3> 
+<form method="POST" action="/create/"> 
+		{% csrf_token %}
+	<table> 
+		{{ form }} 
+	</table> 
+	<input type="submit" value="Зберегти" > 
+</form> 
+{% endblock %}
